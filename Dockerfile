@@ -3,6 +3,7 @@ FROM python:3.10
 WORKDIR /usr/src/app
 
 RUN pip install --no-cache-dir fastapi
+RUN pip install --no-cache-dir pymongo
 RUN pip install --no-cache-dir "uvicorn[standard]"
 
 COPY . .

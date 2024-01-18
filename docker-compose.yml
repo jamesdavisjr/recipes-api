@@ -1,0 +1,23 @@
+version: '6'
+services:
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  api:
+    build: .
+    ports:
+      - 8000:8000
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    volumes:
+      - ./:/usr/src/app
+      - recipe_pycache:/usr/src/app/__pycache__
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/
+volumes:
+    recipe_pycache: {}
